@@ -1,3 +1,7 @@
+# Editor/IDE files
+
+.vscode/
+
 # Dependency directories
 node_modules/
 dist/
