@@ -1,6 +1,7 @@
 import { useRouterAuth } from "@/router/use-router-auth";
 import { Navigate, Outlet } from "@tanstack/react-router";
 import { Route } from "./_authenticated";
+import { AppShell } from "@/components/layout/app-shell";
 
 export default function AuthenticatedLayout() {
   const { user, status } = useRouterAuth();
@@ -16,5 +17,9 @@ export default function AuthenticatedLayout() {
     );
   }
 
-  return <Outlet />;
+  return (
+    <AppShell>
+      <Outlet />
+    </AppShell>
+  );
 }
