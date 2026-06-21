@@ -86,3 +86,63 @@ export const recentActivity = [
     time: "Yesterday",
   },
 ];
+
+export const mockUsers = [
+  {
+    id: "1",
+    action: "John Doe",
+    detail: "Balintonga",
+    submitted: "20",
+  },
+  {
+    id: "2",
+    action: "Juan Dela Cruz",
+    detail: "Dalisay",
+    submitted: "37",
+  },
+  {
+    id: "3",
+    action: "Ana Reyes",
+    detail: "Ibabao",
+    submitted: "50",
+  },
+  {
+    id: "4",
+    action: "Arnold Sanchez",
+    detail: "Maular",
+    submitted: "28",
+  },
+  {
+    id: "5",
+    action: "Stephanie Yap",
+    detail: "Palayan",
+    submitted: "17",
+  },
+];
+
+
+export const revenueData = [
+  { name: "Jan", total: Math.floor(Math.random() * 5000) + 1000 },
+  { name: "Feb", total: Math.floor(Math.random() * 5000) + 1000 },
+  { name: "Mar", total: Math.floor(Math.random() * 5000) + 1000 },
+  { name: "Apr", total: Math.floor(Math.random() * 5000) + 1000 },
+  { name: "May", total: Math.floor(Math.random() * 5000) + 1000 },
+  { name: "Jun", total: Math.floor(Math.random() * 5000) + 1000 },
+];
+
+export const activityData = [
+  { name: "Mon", users: 400, sessions: 240 },
+  { name: "Tue", users: 300, sessions: 139 },
+  { name: "Wed", users: 200, sessions: 980 },
+  { name: "Thu", users: 278, sessions: 390 },
+  { name: "Fri", users: 189, sessions: 480 },
+  { name: "Sat", users: 239, sessions: 380 },
+  { name: "Sun", users: 349, sessions: 430 },
+];
+
+export const distributionData = [
+  { name: "Desktop", value: 400 },
+  { name: "Mobile", value: 300 },
+  { name: "Tablet", value: 300 },
+  { name: "Unknown", value: 200 },
+];
