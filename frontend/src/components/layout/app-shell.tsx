@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
+import { lazy, type ReactNode } from "react";
 import { Link, useMatchRoute } from "@tanstack/react-router";
-import { LayoutDashboard, LogOut, User } from "lucide-react";
+import { Bell, ChartArea, Edit, LayoutDashboard, LogOut, MessagesSquare, Settings, User, Users, Wrench } from "lucide-react";
 import { useAuth } from "@/context/-auth-context";
 import { Button } from "@/components/ui/button";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,10 +21,19 @@ import {
     SidebarSeparator,
     SidebarTrigger,
 } from "@/components/ui/sidebar";
-// Sidebar nav items — add more entries here as you add routes
-const navItems = [
+// Sidebar nav items — add more entries here as you add routesa
+const menuItems = [
     { to: "/", label: "Dashboard", icon: LayoutDashboard, exact: true },
     { to: "/profile", label: "Profile", icon: User, exact: false },
+    { to: "/assessment", label: "Baranggay Assessment", icon: Edit, exact: false }
+] as const;
+const criteriaItems = [
+    { to: "/criteria-setup", label: "Set-Up Criteria", icon: Settings, exact: false },
+    { to: "/criteria-maintenance", label: "Criteria Maintenance", icon: Wrench, exact: false }
+] as const;
+const barangayItems = [
+    { to: "/users", label: "Users", icon: Users, exact: false },
+    { to: "/reports", label: "Reports", icon: ChartArea, exact: false }
 ] as const;
 type AppShellProps = {
     children: ReactNode;
@@ -90,7 +99,23 @@ export function AppShell({ children }: AppShellProps) {
                             <SidebarGroupLabel className="text-slate-400">Menu</SidebarGroupLabel>
                             <SidebarGroupContent>
                                 <SidebarMenu>
-                                    {navItems.map((item) => (
+                                    {menuItems.map((item) => (
+                                        <NavItem key={item.to} {...item} />
+                                    ))}
+                                </SidebarMenu>
+                            </SidebarGroupContent>
+                            <SidebarGroupLabel className="text-slate-400">Criteria Management</SidebarGroupLabel>
+                            <SidebarGroupContent>
+                                <SidebarMenu>
+                                    {criteriaItems.map((item) => (
+                                        <NavItem key={item.to} {...item} />
+                                    ))}
+                                </SidebarMenu>
+                            </SidebarGroupContent>
+                            <SidebarGroupLabel className="text-slate-400">Barangay Management</SidebarGroupLabel>
+                            <SidebarGroupContent>
+                                <SidebarMenu>
+                                    {barangayItems.map((item) => (
                                         <NavItem key={item.to} {...item} />
                                     ))}
                                 </SidebarMenu>
@@ -127,8 +152,32 @@ export function AppShell({ children }: AppShellProps) {
                 </Sidebar>
                 {/* Page content area — slate-950 matches login page backdrop */}
                 <SidebarInset className="bg-slate-950 text-slate-50">
-                    <header className="flex h-14 shrink-0 items-center gap-2 border-b border-slate-800 px-4">
+                    <header className="flex h-14 shrink-0 items-center justify-between border-b border-slate-800 px-4">
                         <SidebarTrigger className="text-slate-50" />
+                        <div className="flex items-center gap-2">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="relative text-slate-400 hover:bg-slate-800/60 hover:text-slate-50 transition-colors"
+                                aria-label="Messages"
+                            >
+                                <MessagesSquare className="size-5" />
+                                <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-blue-600 px-1 text-[9px] font-semibold text-white ring-2 ring-slate-950">
+                                    3
+                                </span>
+                            </Button>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="relative text-slate-400 hover:bg-slate-800/60 hover:text-slate-50 transition-colors"
+                                aria-label="Notifications"
+                            >
+                                <Bell className="size-5"/>
+                                <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-blue-600 px-1 text-[9px] font-semibold text-white ring-2 ring-slate-950">
+                                    5
+                                </span>
+                            </Button>
+                        </div>
                     </header>
                     <div className="flex flex-1 flex-col p-6">{children}</div>
                 </SidebarInset>

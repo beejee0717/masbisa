@@ -12,7 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedUsersRouteImport } from './routes/_authenticated/users'
+import { Route as AuthenticatedReportsRouteImport } from './routes/_authenticated/reports'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedCriteriaSetupRouteImport } from './routes/_authenticated/criteria-setup'
+import { Route as AuthenticatedCriteriaMaintenanceRouteImport } from './routes/_authenticated/criteria-maintenance'
+import { Route as AuthenticatedAssessmentRouteImport } from './routes/_authenticated/assessment'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -28,39 +33,102 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedUsersRoute = AuthenticatedUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedReportsRoute = AuthenticatedReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedCriteriaSetupRoute =
+  AuthenticatedCriteriaSetupRouteImport.update({
+    id: '/criteria-setup',
+    path: '/criteria-setup',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCriteriaMaintenanceRoute =
+  AuthenticatedCriteriaMaintenanceRouteImport.update({
+    id: '/criteria-maintenance',
+    path: '/criteria-maintenance',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAssessmentRoute = AuthenticatedAssessmentRouteImport.update({
+  id: '/assessment',
+  path: '/assessment',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/login': typeof LoginRoute
+  '/assessment': typeof AuthenticatedAssessmentRoute
+  '/criteria-maintenance': typeof AuthenticatedCriteriaMaintenanceRoute
+  '/criteria-setup': typeof AuthenticatedCriteriaSetupRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/reports': typeof AuthenticatedReportsRoute
+  '/users': typeof AuthenticatedUsersRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
+  '/assessment': typeof AuthenticatedAssessmentRoute
+  '/criteria-maintenance': typeof AuthenticatedCriteriaMaintenanceRoute
+  '/criteria-setup': typeof AuthenticatedCriteriaSetupRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/reports': typeof AuthenticatedReportsRoute
+  '/users': typeof AuthenticatedUsersRoute
   '/': typeof AuthenticatedIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
+  '/_authenticated/assessment': typeof AuthenticatedAssessmentRoute
+  '/_authenticated/criteria-maintenance': typeof AuthenticatedCriteriaMaintenanceRoute
+  '/_authenticated/criteria-setup': typeof AuthenticatedCriteriaSetupRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/reports': typeof AuthenticatedReportsRoute
+  '/_authenticated/users': typeof AuthenticatedUsersRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/profile'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/assessment'
+    | '/criteria-maintenance'
+    | '/criteria-setup'
+    | '/profile'
+    | '/reports'
+    | '/users'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/profile' | '/'
+  to:
+    | '/login'
+    | '/assessment'
+    | '/criteria-maintenance'
+    | '/criteria-setup'
+    | '/profile'
+    | '/reports'
+    | '/users'
+    | '/'
   id:
     | '__root__'
     | '/_authenticated'
     | '/login'
+    | '/_authenticated/assessment'
+    | '/_authenticated/criteria-maintenance'
+    | '/_authenticated/criteria-setup'
     | '/_authenticated/profile'
+    | '/_authenticated/reports'
+    | '/_authenticated/users'
     | '/_authenticated/'
   fileRoutesById: FileRoutesById
 }
@@ -92,6 +160,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/users': {
+      id: '/_authenticated/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof AuthenticatedUsersRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/reports': {
+      id: '/_authenticated/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof AuthenticatedReportsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/profile': {
       id: '/_authenticated/profile'
       path: '/profile'
@@ -99,16 +181,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProfileRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/criteria-setup': {
+      id: '/_authenticated/criteria-setup'
+      path: '/criteria-setup'
+      fullPath: '/criteria-setup'
+      preLoaderRoute: typeof AuthenticatedCriteriaSetupRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/criteria-maintenance': {
+      id: '/_authenticated/criteria-maintenance'
+      path: '/criteria-maintenance'
+      fullPath: '/criteria-maintenance'
+      preLoaderRoute: typeof AuthenticatedCriteriaMaintenanceRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/assessment': {
+      id: '/_authenticated/assessment'
+      path: '/assessment'
+      fullPath: '/assessment'
+      preLoaderRoute: typeof AuthenticatedAssessmentRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
 interface AuthenticatedRouteChildren {
+  AuthenticatedAssessmentRoute: typeof AuthenticatedAssessmentRoute
+  AuthenticatedCriteriaMaintenanceRoute: typeof AuthenticatedCriteriaMaintenanceRoute
+  AuthenticatedCriteriaSetupRoute: typeof AuthenticatedCriteriaSetupRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedReportsRoute: typeof AuthenticatedReportsRoute
+  AuthenticatedUsersRoute: typeof AuthenticatedUsersRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAssessmentRoute: AuthenticatedAssessmentRoute,
+  AuthenticatedCriteriaMaintenanceRoute: AuthenticatedCriteriaMaintenanceRoute,
+  AuthenticatedCriteriaSetupRoute: AuthenticatedCriteriaSetupRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedReportsRoute: AuthenticatedReportsRoute,
+  AuthenticatedUsersRoute: AuthenticatedUsersRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 
